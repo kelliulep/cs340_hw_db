@@ -1,4 +1,4 @@
-<header> 
+<header>
     <div class="header">
         <a class="left" onclick="backfunc()" style="margin-left='12'"> Back </a>
         <a href='Home.php' class="left" style="margin-left='12'">Home</a>
