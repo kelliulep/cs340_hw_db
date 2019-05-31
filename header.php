@@ -1,3 +1,4 @@
+
 <header>
     <div class="header">
         <a class="left" onclick="backfunc()" style="margin-left='12'"> Back </a>
@@ -8,6 +9,11 @@
         <div class="header-right">
             <a href='Favorites.php' class="right"> Favorites </a>
             <a onclick="loginfunc()" class="right"> Login </a>
+            <!-- <div class='hide'>
+                <a href='AdminAccount.php' style='display:none;'> AdminAccount </a>
+            </div> -->
+            <a href='UserAccount.php' > Account </a>
+
         </div>
     </div>
 

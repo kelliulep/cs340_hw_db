@@ -69,3 +69,7 @@ header h1 {
 	font-size : 1.8em;
 	
 }
+
+.hide {
+  display: none;
+}
