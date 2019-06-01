@@ -52,7 +52,7 @@ function isBlank(inputField){
 function makeRed(inputDiv){
     inputDiv.style.backgroundColor="#AA0000";
     //inputDiv.parentNode.style.backgroundColor="#AA0000";
-    inputDiv.parentNode.style.color="#FFFFFF";
+    inputDiv.parentNode.style.color="#AA0000";
 }
 
 //remove all error styles from the div passed in
@@ -69,7 +69,7 @@ window.onload = function(){
     var requiredInputs = document.querySelectorAll(".required");
     for (var i=0; i < requiredInputs.length; i++){
         requiredInputs[i].onfocus = function(){
-            this.style.backgroundColor = "#EEEE00";
+            this.style.backgroundColor = "#47ceee";
         }
     }
 
