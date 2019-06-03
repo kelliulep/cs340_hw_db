@@ -1,11 +1,9 @@
-
 <?php
         if(!session_id()){
             session_start();
         }
 		$currentpage="View Post";
 		include "pages.php";
-		echo session_id();
 ?>
 <!DOCTYPE html>
 <html>
@@ -114,6 +112,7 @@ echo "<table id='t02' border='1'><tr>";
         mysqli_free_result($resultReply);
         mysqli_free_result($result);
         mysqli_close($conn);
+            exit();
     ?>
 </body>
 
