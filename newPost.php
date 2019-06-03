@@ -1,10 +1,9 @@
-
-<!-- Add Part Info to Table Part -->
 <?php
-        session_start();
+        if(!session_id()){
+            session_start();
+        }
 		$currentpage="Add Post";
 		include "pages.php";
-		echo session_id();
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +16,6 @@
 
 
 <?php
-    print_r($_SESSION);
 	include "header.php";
 	$msg = "Add new Post";
 
@@ -46,7 +44,6 @@
         $contentQ = "INSERT INTO Content (postID, picURL, text) VALUES ('$value', '$url', '$content')";
         if(mysqli_query($conn, $query) && mysqli_query($conn, $contentQ)){
             $_SESSION['currPost'] = $value;
-            print_r($_SESSION);
             echo '<script>window.location.href = "viewPost.php";</script>';
         } else if (mysqli_query($conn, $query) == null && mysqli_query($conn, $contentQ)==null){
 
