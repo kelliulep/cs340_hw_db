@@ -73,18 +73,20 @@ window.onload = function(){
         }
     }
 
+    if(requiredInputs.length==0) return;
+
     //on submitting the form, "empty" checks are performed on required inputs.
     myForm.onsubmit = function(e){
-        var requiredInputs = document.querySelectorAll(".required");
-        for (var i=0; i < requiredInputs.length; i++){
-            if( isBlank(requiredInputs[i]) ){
-                e.preventDefault();
-                makeRed(requiredInputs[i]);
-            }
-            else{
-                makeClean(requiredInputs[i]);
-            }
-        }
-
-    }
+		var requiredInputs = document.querySelectorAll(".required");
+		for (var i=0; i < requiredInputs.length; i++){
+			if( isBlank(requiredInputs[i]) ){
+				e.preventDefault();
+				makeRed(requiredInputs[i]);
+			}
+			else{
+				makeClean(requiredInputs[i]);
+			} 
+		}
+		
+	}   
 }
