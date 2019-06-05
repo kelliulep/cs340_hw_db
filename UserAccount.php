@@ -7,6 +7,7 @@
 	<head>
 		<title>AdminInfo</title>
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="acctStyle.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- bootstrap stuff -->
 		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -42,6 +43,7 @@
 
 	$row = mysqli_fetch_array($result);
 
+	echo "<div id='account'>";
 	echo "<p> <b>Username:</b> " . $row['UserID']. "<p>";
 	echo "<p> <b>Date Joined:</b> " . $row['date']. "<p>";
 	echo "<p> <b>Number Posts:</b> " . $row['num_posts']. "<p>";
@@ -73,10 +75,10 @@
 		echo "<table id='t01' border='1'><tr>";
 		
 	// printing table headers
-		for($i=0; $i<$fields_num; $i++) {	
-			$field = mysqli_fetch_field($result2);	
-			echo "<td><b>$field->name</b></td>";
-		}
+		echo "<td><b>Banned Username</b></td>";
+		echo "<td><b>Date Banned</b></td>";
+
+
 		echo "</tr>\n";
 		while($row = mysqli_fetch_row($result2)) {	
 			echo "<tr>";	
@@ -91,6 +93,7 @@
 		echo "<a href='BanUser.php'> Ban User </a>";
 	}
 
+	echo "</div>";
 
 
 	mysqli_free_result($result);
