@@ -2,24 +2,22 @@
         if(!session_id()){
             session_start();
         }
-		$currentpage="Add Post";
+		$currentpage="New Post";
 		include "pages.php";
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Post</title>
+    <title>New Post</title>
     <script type = "text/javascript"  src = "verifyInput.js" > </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-
 <?php
 	include "header.php";
 	$msg = "Add new Post";
 
-// change the value of $dbuser and $dbpass to your username and password
+    // change the value of $dbuser and $dbpass to your username and password
 	include 'connectvars.php';
 
 	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -39,14 +37,14 @@
         // attempt insert query
         $queryTwo = "SELECT * FROM Post";
         $resultTwo = mysqli_query($conn, $queryTwo);
-        $value = mysqli_num_rows($resultTwo) + 1;
+        $value = mysqli_num_rows($resultTwo) + 2;
         $query = "INSERT INTO Post (postID, title, category, user_id) VALUES ('$value', '$title', '$category', '$userId')";
         $contentQ = "INSERT INTO Content (postID, picURL, text) VALUES ('$value', '$url', '$content')";
         if(mysqli_query($conn, $query) && mysqli_query($conn, $contentQ)){
             $_SESSION['currPost'] = $value;
             echo '<script>window.location.href = "viewPost.php";</script>';
         } else if (mysqli_query($conn, $query) == null && mysqli_query($conn, $contentQ)==null){
-
+            echo "ERROR: Could not able to execute: " . mysqli_error($conn);
         }
         else {
             echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
