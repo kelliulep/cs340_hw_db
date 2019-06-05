@@ -14,6 +14,9 @@
 </head>
 <body>
     <?php
+        if(isset($_GET['post'])){
+            $_SESSION['currPost'] = $_GET['post'];
+        }
         $pid = $_SESSION['currPost'];
 
         // change the value of $dbuser and $dbpass to your username and password
