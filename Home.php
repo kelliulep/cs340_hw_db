@@ -4,6 +4,16 @@
 	<head>
 		<link rel="stylesheet" href="style.css">
 		<script type = "text/javascript"  src = "verifyInput.js" > </script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+				<!-- bootstrap stuff -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
 <body>
 
@@ -23,10 +33,32 @@
 		die('Could not connect: ' . mysql_error());
 	} //dont need right now*/
 
-	// query to select all information from supplier table
-	$currentId = "zebra6"; // temporary nonadmin current user
+
+echo "<div class=container>";
+
+// show buttons of all categories 
+$categories = "SELECT DISTINCT category FROM Post";
+$catResult = mysqli_query($conn, $categories);
+echo "<div>";	
+while($row = mysqli_fetch_row($catResult)) {	
+	// $row is array... foreach( .. ) puts every element
+	// of $row to $cell variable	
+	foreach($row as $cell)		
+		echo "<button name='$cell'>$cell</button>";	
+}
+echo "</div>\n";
+
+
+// query to select all information from supplier table
+$currentId = "zebra6"; // temporary nonadmin current user
 
 $query = "SELECT postID, user_id, title FROM Post ";
+
+if(isset($_POST['search'])) {
+	$search_term = mysqli_real_escape_string($conn,$_POST['search_box']);
+	$query .= "WHERE title LIKE '%{$search_term}%'";
+	// echo "search term: $search_term\n";
+}
 
 // Get results from query
 $result = mysqli_query($conn, $query);
@@ -34,29 +66,22 @@ if (!$result) {
 	die("Query to show fields from table failed");
 }
 
-$categories = "SELECT DISTINCT category FROM Post";
-$catResult = mysqli_query($conn, $categories);
-while($row = mysqli_fetch_row($catResult)) {	
-	echo "<div>";	
-	// $row is array... foreach( .. ) puts every element
-	// of $row to $cell variable	
-	foreach($row as $cell)		
-		echo "<button>$cell</button>";	
-	echo "</div>\n";
-}
 
+// get number of columns in table
+$fields_num = mysqli_num_fields($result);
+// echo "<table id='t01' class='table' border='1'><tr>";
+echo "<table class='table table-info table-striped table-bordered'><tr>";
 
-	// get number of columns in table
-	$fields_num = mysqli_num_fields($result);
-	echo "<table id='t01' border='1'><tr>";
+// // printing table headers
+// for($i=0; $i<$fields_num; $i++) {
+// 	$field = mysqli_fetch_field($result);
+// 	if($i > 0){
+// 		echo "<td><b>$field->name</b></td>";
+// 	}
+// }
+echo "<td><b>Username</b></td>";
+echo "<td><b>Post Title</b></td>";
 
-// printing table headers
-for($i=0; $i<$fields_num; $i++) {
-	$field = mysqli_fetch_field($result);
-	if($i > 0){
-		echo "<td><b>$field->name</b></td>";
-	}
-}
 echo "</tr>\n";
 while($row = mysqli_fetch_row($result)) {
 	echo "<tr>";
@@ -80,7 +105,20 @@ while($row = mysqli_fetch_row($result)) {
 }
 
 
+
 ?>
+<form name="search_form" method="POST" action="Home.php" class="form-inline">
+	<i class="fas fa-search" aria-hidden="true"></i>
+	<input class="form-group mx-sm-3 mb-2" type="text" name="search_box" value=""/>
+	<input type="submit" class="btn btn-primary btn-xs" name="search" value="Search posts">
+</form>
+
+<div class="fixed-action-btn" style="position:fixed; bottom: 30px; right:24px">
+	<a href='newPost.php' id="new_post" class="btn btn-primary btn-lg" role="button">Create a Post</a>
+</div>
+
+
+</div>
 </body>
 
 </html>

@@ -106,7 +106,7 @@ td {
 }
 
 table#t01 {
-	width:400px;
+	width:100%;
 }
 
 table#t01 tr:nth-child(even) {
@@ -126,3 +126,4 @@ table#t01 th {
   background-color: orange;
   color: orange;
 }
+
