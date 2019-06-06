@@ -106,7 +106,7 @@
             // $row is array... foreach( .. ) puts every element
             // of $row to $cell variable
             foreach($row as $cell)
-            echo "<td>$cell</td>";
+            echo nl2br("<td>$cell</td>");
             echo "</tr>\n";
         }
         mysqli_free_result($resultContent);
