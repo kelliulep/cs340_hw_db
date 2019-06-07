@@ -149,11 +149,13 @@
                     //temporary hardcoded userid
                     $userId = "smartboi";
 
-                    $query = "INSERT INTO Replies (replyID, textContent, postId, user_id) VALUES ('$id', '$reply', '$pid', '$userId')";
-                    if(mysqli_query($conn, $query)){
-                        echo '<script>window.location.href = "viewPost.php";</script>';
-                    } else if (mysqli_query($conn, $query) == null){
-                        echo "ERROR: Could not able to execute: " . mysqli_error($conn);
+                    if($reply != "") {
+                        $query = "INSERT INTO Replies (replyID, textContent, postId, user_id) VALUES ('$id', '$reply', '$pid', '$userId')";
+                        if(mysqli_query($conn, $query)){
+                            echo '<script>window.location.href = "viewPost.php";</script>';
+                        } else if (mysqli_query($conn, $query) == null){
+                            echo "ERROR: Could not able to execute: " . mysqli_error($conn);
+                        }
                     }
                 }
                 $idQ = null;
@@ -166,7 +168,8 @@
             $favQuery = "INSERT INTO Favorites(postID, userID)
                         VALUES ('$pid', '$currUser')";
             if(mysqli_query($conn, $favQuery)){
-                echo "<p> favorited! </p>";
+                echo '<script>window.location.href = "viewPost.php";</script>';
+                // echo "<p> favorited! </p>";
             }
         }
         mysqli_close($conn);
