@@ -36,27 +36,27 @@
 
 echo "<div class=container>";
 
-// show buttons of all categories 
-$categories = "SELECT DISTINCT category FROM Post";
-$catResult = mysqli_query($conn, $categories);
-echo "<div>";	
-while($row = mysqli_fetch_row($catResult)) {	
-	// $row is array... foreach( .. ) puts every element
-	// of $row to $cell variable	
-	foreach($row as $cell)		
-		echo "<button name='$cell'>$cell</button>";	
-}
-echo "</div>\n";
+// // show buttons of all categories 
+// $categories = "SELECT DISTINCT category FROM Post";
+// $catResult = mysqli_query($conn, $categories);
+// echo "<div>";	
+// while($row = mysqli_fetch_row($catResult)) {	
+// 	// $row is array... foreach( .. ) puts every element
+// 	// of $row to $cell variable	
+// 	foreach($row as $cell)		
+// 		echo "<button name='$cell'>$cell</button>";	
+// }
+// echo "</div>\n";
 
 
 // query to select all information from supplier table
 $currentId = "zebra6"; // temporary nonadmin current user
 
-$query = "SELECT postID, user_id, title FROM Post ";
+$query = "SELECT postID, user_id, title, category FROM Post ";
 
 if(isset($_POST['search'])) {
 	$search_term = mysqli_real_escape_string($conn,$_POST['search_box']);
-	$query .= "WHERE title LIKE '%{$search_term}%'";
+	$query .= "WHERE title LIKE '%{$search_term}%' OR category LIKE '%{$search_term}%'";
 	// echo "search term: $search_term\n";
 }
 
@@ -81,6 +81,7 @@ echo "<table class='table table-info table-striped table-bordered'><tr>";
 // }
 echo "<td><b>Username</b></td>";
 echo "<td><b>Post Title</b></td>";
+echo "<td><b>Category</b></td>";
 
 echo "</tr>\n";
 while($row = mysqli_fetch_row($result)) {

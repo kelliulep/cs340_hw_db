@@ -64,6 +64,11 @@
         if (!$resultContent) {
             die("Query to show fields from table failed: mysqli_error($conn)");
         }
+
+        // $cont = mysqli_fetch_array($resultContent);
+        // echo "<img src='" . $cont['picURL'] . "'/>";
+
+
         // get number of columns in table
         $fieldsContent = mysqli_num_fields($resultContent);
         echo "<table id='t03' border='1'><tr>";
