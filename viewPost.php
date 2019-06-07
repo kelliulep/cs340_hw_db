@@ -11,8 +11,24 @@
     <title>View Post</title>
     <script type = "text/javascript"  src = "verifyInput.js" > </script>
     <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap stuff -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<?php
+    include 'connectvars.php';
+	include 'header.php';
+?>
+<div style="padding: 20px;">
     <?php
         if(isset($_GET['post'])){
             $_SESSION['currPost'] = $_GET['post'];
@@ -20,8 +36,7 @@
         $pid = $_SESSION['currPost'];
 
         // change the value of $dbuser and $dbpass to your username and password
-	    include 'connectvars.php';
-	    include 'header.php';
+
 
 	    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	    if (!$conn) {
@@ -29,7 +44,7 @@
 	    }
 
         // query to select all information from supplier table
-	    $query = "SELECT * FROM Post WHERE postID = '$pid'";
+	    $query = "SELECT title, category, user_id FROM Post WHERE postID = '$pid'";
 
         // Get results from query
 	    $result = mysqli_query($conn, $query);
@@ -38,53 +53,61 @@
 	    }
         // get number of columns in table
 	    $fields_num = mysqli_num_fields($result);
-	    echo "<h1>Post:</h1>";
-        echo "<table id='t02' border='1'><tr>";
+        //echo "<table id='t02' border='1'><tr>";
 
         // printing table headers
         for($i=0; $i<$fields_num; $i++) {
             $field = mysqli_fetch_field($result);
-            echo "<td><b>$field->name</b></td>";
+            //echo "<td><b>$field->name</b></td>";
         }
         echo "</tr>\n";
         while($row = mysqli_fetch_row($result)) {
-            echo "<tr>";
+            //echo "<div>";
             // $row is array... foreach( .. ) puts every element
             // of $row to $cell variable
-            foreach($row as $cell)
-            echo "<td>$cell</td>";
-            echo "</tr>\n";
+            $count1 = 0;
+            echo "<div style='background-color: #f1f1f1; color: #050505; padding: 10px;'>";
+            foreach($row as $cell){
+                if($count1 == 0){
+                    echo "<h2>$cell</h2>";
+                }
+                else if($count1 == 1){
+                    echo "<h4>Category: $cell</h4>";
+                }
+                else{
+                    echo "<h4>Posted By: $cell</h4>";
+                }
+                $count1 = $count1 + 1;
+            }
+
         }
 
         // query to select all information from supplier table
-        $queryContent = "SELECT * FROM Content WHERE postID = '$pid'";
+        $queryContent = "SELECT picUrl, text FROM Content WHERE postID = '$pid'";
 
         // Get results from query
         $resultContent = mysqli_query($conn, $queryContent);
         if (!$resultContent) {
             die("Query to show fields from table failed: mysqli_error($conn)");
         }
-        // get number of columns in table
-        $fieldsContent = mysqli_num_fields($resultContent);
-        echo "<table id='t03' border='1'><tr>";
 
-        // printing table headers
-        for($i=0; $i<$fieldsContent; $i++) {
-            $fieldHeader = mysqli_fetch_field($resultContent);
-            echo "<td><b>$fieldHeader->name</b></td>";
-        }
-        echo "</tr>\n";
         while($row = mysqli_fetch_row($resultContent)) {
-        echo "<tr>";
-            // $row is array... foreach( .. ) puts every element
-            // of $row to $cell variable
-            foreach($row as $cell)
-            echo "<td>$cell</td>";
-            echo "</tr>\n";
+            $count2 = 0;
+            foreach($row as $cell){
+                if($count2 == 0){
+                    if($cell != null){
+                        echo "$cell";
+                    }
+                }
+                else{
+                    echo "<h5>$cell</h5>";
+                }
+                $count2 = $count2 + 1;
+            }
         }
+        echo "</div>";
 
-        // query to select all information from supplier table
-        $queryReply = "SELECT * FROM Replies WHERE postID = '$pid'";
+        $queryReply = "SELECT user_id as user, textContent as reply FROM Replies WHERE postID = '$pid'";
 
         // Get results from query
         $resultReply = mysqli_query($conn, $queryReply);
@@ -93,7 +116,7 @@
         }
         // get number of columns in table
         $fieldsReply = mysqli_num_fields($resultReply);
-        echo "<table id='t02' border='1'><tr>";
+        echo "<table id='t02' class='table table-info table-striped table-bordered' border='1'><tr>";
 
         // printing table headers
         for($i=0; $i<$fieldsReply; $i++) {
@@ -139,13 +162,14 @@
                     <fieldset>
                         <p>
                             <label for="reply">Reply:</label>
-                            <input type="text" class="required" name="reply" id="reply">
+                            <input type="text" class="required form-control" name="reply" id="reply" required="true">
                         </p>
                     </fieldset>
                     <p>
-                        <input id="submitReply" type = "submit"  value = "Submit" />
+                        <input class="btn btn-default" id="submitReply" type = "submit"  value = "Submit" />
                     </p>
                 </form>
+</div>
 </body>
 </html>
 

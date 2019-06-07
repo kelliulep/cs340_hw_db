@@ -73,7 +73,7 @@ window.onload = function(){
         }
     }
 
-    if(requiredInputs.length==0) return;
+    if(requiredInputs.length===0) return;
 
     //on submitting the form, "empty" checks are performed on required inputs.
     myForm.onsubmit = function(e){
@@ -89,4 +89,4 @@ window.onload = function(){
 		}
 		
 	}   
-}
+};
