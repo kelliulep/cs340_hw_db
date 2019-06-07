@@ -74,11 +74,11 @@
             <legend>New Post:</legend>
     <p>
         <label for="title">Title:</label>
-        <input type="text" class="required form-control" name="title" id="title">
+        <input type="text" class="required form-control" name="title" id="title" required="true">
     </p>
     <p>
         <label for="category">Category:</label>
-        <input type="text" class="required form-control" name="category" id="category">
+        <input type="text" class="required form-control" name="category" id="category" required="true">
     </p>
     <p>
         <label for="url">Photo URL (optional):</label>
@@ -87,7 +87,7 @@
 
     <p>
         <label for="content">Content:</label>
-        <textarea cols="40" rows="5" class="form-control" name="content" id="content"></textarea>
+        <textarea cols="40" rows="5" class="form-control" name="content" id="content" required="true"></textarea>
 
         </fieldset>
 
