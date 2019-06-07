@@ -16,7 +16,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
 <?php
-	include 'connectvars.php'; 
+	include 'connectvars.php';
 	include 'header.php';
 	?>
 
@@ -26,12 +26,12 @@
 	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if (!$conn) {
 		die('Could not connect: ' . mysql_error());
-	}	
+	}
 
-$currentId = "geosuxks"; // temporary current user
+$currentId = "smartboi"; // temporary current user
 
 $query = "SELECT Post.postID, Post.title, Post.user_id as posted_by FROM Favorites, Post
-			WHERE Favorites.postID = Post.postID 
+			WHERE Favorites.postID = Post.postID
 			AND Favorites.UserID = '$currentId' ";
 
 // Get results from query
@@ -40,7 +40,7 @@ if (!$result) {
 	die("Query to show fields from table failed");
 }
 
-// get number of columns in table	
+// get number of columns in table
 $fields_num = mysqli_num_fields($result);
 echo "<table id='t01' border='1' class='table table-info table-striped table-bordered'><tr>";
 
@@ -52,11 +52,11 @@ for($i=0; $i<$fields_num; $i++) {
 	}
 }
 echo "</tr>\n";
-while($row = mysqli_fetch_row($result)) {	
+while($row = mysqli_fetch_row($result)) {
 	echo "<tr>";
 	$count = 1;
 	// $row is array... foreach( .. ) puts every element
-	// of $row to $cell variable	
+	// of $row to $cell variable
 	foreach($row as $cell){
 		global $id;
 		if($count == 1){

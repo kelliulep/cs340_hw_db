@@ -158,6 +158,17 @@
                 }
                 $idQ = null;
                 $query = null;
+
+
+        $currUser = "smartboi"; //temporary hard coded user id
+        //handle favorite button
+        if(isset($_POST['favorite'])) {
+            $favQuery = "INSERT INTO Favorites(postID, userID)
+                        VALUES ('$pid', '$currUser')";
+            if(mysqli_query($conn, $favQuery)){
+                echo "<p> favorited! </p>";
+            }
+        }
         mysqli_close($conn);
     ?>
                 <section>
@@ -171,6 +182,10 @@
                     <p>
                         <input class="btn btn-default" id="submitReply" type = "submit"  value = "Submit" />
                     </p>
+                </form>
+
+                <form method="post">
+                    <input type="submit" name="favorite" value="favorite"/>
                 </form>
 </div>
 </body>
