@@ -4,6 +4,16 @@
 	<head>
 		<script type = "text/javascript"  src = "verifyInput.js" > </script>
 		<link rel="stylesheet" href="style.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- bootstrap stuff -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 		<?php include 'connectvars.php'; ?>
 	</head>
 <body>
@@ -19,7 +29,7 @@
 	
 	include 'header.php';
 
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		// Escape user inputs for security
 		$UserID = mysqli_real_escape_string($conn, $_POST['UserID']);
 		$password = mysqli_real_escape_string($conn, $_POST['password']);
@@ -39,25 +49,22 @@
 				echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
 			}
 		}
-	}
+	}*/
 
-	if ($_SERVER["REQUEST_METHOD"] == "LOGIN") {
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		// Escape user inputs for security
 		$UserID = mysqli_real_escape_string($conn, $_POST['UserID']);
 		$password = mysqli_real_escape_string($conn, $_POST['password']);
-				// See if sid is already in the table
 		$queryIn = "SELECT * FROM Users where UserID='$UserID' and password='$password'";
 		$resultIn = mysqli_query($conn, $queryIn);
-		if (mysqli_num_rows($resultIn)> 0) {
-			$_SESSION[Login] = TRUE;
-			$_SESSION[UserID] = $UserID;
-			$msg ="Found User Attempting login.<p>";
-			//return True;
+		if (mysqli_num_rows($resultIn) > 0) {
+			$_SESSION['login'] = TRUE;
+			$_SESSION['userID'] = $UserID;
+			echo '<script>window.location.href = "Home.php";</script>';
 		} else {
-			$_SESSION[Login] = False;
-			$_SESSION[UserID] = "None";
-			$msg =  "<h2>Can't Add to Table</h2> There is already a supplier with sid $UserID<p>";
-			//return False;
+			$_SESSION['login'] = False;
+			$_SESSION['userID'] = "";
+			$msg =  "Couldn't log in :(";
 		}
 	}
 
@@ -70,13 +77,13 @@
 
 <form method="post" id="addForm">
 	<fieldset>
-		<legend>Supplier Info:</legend>
+		<legend>Log in to your CheggButFree.com account:</legend>
 		<p>
-			<label for="UserID">Supplier ID:</label>
+			<label for="UserID">UserID:</label>
 			<input type="text" class="required" name="UserID" id="UserID" title="sid should be numeric">
 		</p>
 		<p>
-			<label for="password">Supplier Name:</label>
+			<label for="password">Password:</label>
 			<input type="text" class="required" name="password" id="password">
 		</p>
 	</fieldset>

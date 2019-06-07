@@ -8,42 +8,49 @@
         <h1 style="text-align:center; display:inline-block;">CheggButFree.com</h1>
 
         <div class="header-right">
-            <a href='UserAccount.php' class="right"> Account </a>
-            <a href='Favorites.php' class="right"> Favorites </a>
-            <a onclick="loginfunc()" class="right"> Login </a>
-            <!-- <div class='hide'>
-                <a href='AdminAccount.php' style='display:none;'> AdminAccount </a>
-            </div> -->
-
+            <?php
+                if(isset($_SESSION['login'])){
+                    if(($_SESSION['login']) == TRUE){
+                        echo '<a href="UserAccount.php" class="right" style="width: 90px;"> Account </a>';
+                        echo '<a href="Favorites.php" class="right" style="width: 100px;"> Favorites</a>';
+                        echo '<a id="logout" href="LogOut.php" class="right" style="width: 100px;"> Log out </a>';
+                    }
+                    else{
+                        echo '<a id="login" href="LoginInfo.php" class="right" style="width: 100px;"> Log in </a>';
+                    }
+                }
+                else{
+                    echo '<a id="login" href="LoginInfo.php" class="right" style="width: 100px;"> Log in </a>';
+                }
+            ?>
         </div>
     </div>
-    <h2> <?php echo $msg; ?> </h2>
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <?php
+    include 'connectvars.php';
+	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	if (!$conn) {
+		die('Could not connect: ' . mysql_error());
+	}
 
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2> <?php echo $msg; ?> </h2>
+        if ($_SERVER["REQUEST_METHOD"] == "LOGIN") {
+		// Escape user inputs for security
+		$UserID = mysqli_real_escape_string($conn, $_POST['UserID']);
+		$password = mysqli_real_escape_string($conn, $_POST['password']);
+				// See if sid is already in the table
+		$queryIn = "SELECT * FROM Users where UserID='$UserID' and password='$password'";
+		$resultIn = mysqli_query($conn, $queryIn);
+		if (mysqli_num_rows($resultIn)> 0) {
+    $_SESSION[Login] = TRUE;
+    echo "$_SESSION[Login]";
+    $_SESSION[UserID] = $UserID;
+    $msg ="Found User Attempting login.<p>";
 
-            <form method="login" id="addForm">
-	            <fieldset>
-                <label for="UserID" style="color:white;"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="UserID" required>
-
-                <label for="password" style="color:white;"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
-                </fieldset>
-                    
-                <p>
-                <input type = "submit"  value = "Submit" />
-                <input type = "reset"  value = "Clear Form" />
-                </p>
-            </form>
-
-        </div>
-    </div>
+    } else {
+        $_SESSION[Login] = False;
+    }
+    }
+    ?>
 
 
     <script>

@@ -113,9 +113,20 @@ while($row = mysqli_fetch_row($result)) {
 	<input class="form-group mx-sm-3 mb-2" type="text" name="search_box" value=""/>
 	<input type="submit" class="btn btn-primary btn-xs" name="search" value="Search posts">
 </form>
-
+<div <?php
+            if(isset($_SESSION['login'])){
+                    if(($_SESSION['login']) == TRUE){
+                    }
+                    else{
+                       echo "style='display: none;'";
+                    }
+            } else{
+                echo "style='display:none;'";
+            }
+        ?>>>
 <div class="fixed-action-btn" style="position:fixed; bottom: 30px; right:24px">
 	<a href='newPost.php' id="new_post" class="btn btn-primary btn-lg" role="button">Create a Post</a>
+</div>
 </div>
 
 

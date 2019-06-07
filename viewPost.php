@@ -35,6 +35,13 @@
         }
         $pid = $_SESSION['currPost'];
 
+        global $currUser;
+		if(isset($_SESSION['userID'])){
+		    $currUser = $_SESSION['userID'];
+		} else {
+		    $currUser = "";
+		}
+		 echo "Hello $currUser";
         // change the value of $dbuser and $dbpass to your username and password
 
 
@@ -147,11 +154,8 @@
                     $idQResponse = mysqli_query($conn, $idQResponse);
                     $id = mysqli_num_fields($idQResponse);
 
-                    //temporary hardcoded userid
-                    $userId = "smartboi";
-
                     if($reply != "") {
-                        $query = "INSERT INTO Replies (replyID, textContent, postId, user_id) VALUES ('$id', '$reply', '$pid', '$userId')";
+                        $query = "INSERT INTO Replies (replyID, textContent, postId, user_id) VALUES ('$id', '$reply', '$pid', '$currUser')";
                         if(mysqli_query($conn, $query)){
                             echo '<script>window.location.href = "viewPost.php";</script>';
                         } else if (mysqli_query($conn, $query) == null){
@@ -163,8 +167,6 @@
                 $query = null;
 
 
-        $currUser = "smartboi"; //temporary hard coded user id
-        //handle favorite button
         if(isset($_POST['favorite'])) {
             $favQuery = "INSERT INTO Favorites(postID, userID)
                         VALUES ('$pid', '$currUser')";
@@ -175,7 +177,18 @@
         }
         mysqli_close($conn);
     ?>
-                <section>
+        <div <?php
+            if(isset($_SESSION['login'])){
+                    if(($_SESSION['login']) == TRUE){
+                    }
+                    else{
+                       echo "style='display: none;'";
+                    }
+            } else{
+                echo "style='display:none;'";
+            }
+        ?>>
+        <section>
                 <form method="post" id="addForm">
                     <fieldset>
                         <p>
@@ -188,9 +201,10 @@
                     </p>
                 </form>
 
-                <form method="post">
+                <form method="post" id="fav-button">
                     <input type="submit" name="favorite" value="favorite"/>
                 </form>
+        </div>
 </div>
 </body>
 </html>
