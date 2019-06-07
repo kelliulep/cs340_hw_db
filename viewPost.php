@@ -99,7 +99,8 @@
             foreach($row as $cell){
                 if($count2 == 0){
                     if($cell != null){
-                        echo "$cell";
+                        // echo "$cell";
+                        echo "<img src='" . $cell . "'/>";
                     }
                 }
                 else{
