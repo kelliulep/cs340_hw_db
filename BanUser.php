@@ -1,3 +1,8 @@
+<?php
+        if(!session_id()){
+            session_start();
+        }
+?>
 <!DOCTYPE html>
 <!-- Add Supplier Info to Table Supplier -->
 <?php
@@ -27,7 +32,7 @@
 <?php include "header.php"; ?>
 <div style="padding: 20px;">
 <?php
-	$msg = "Ban a Problematic User";
+	echo "<h2>Ban a Problematic User</h2>";
 
 // change the value of $dbuser and $dbpass to your username and password
 	include 'connectvars.php'; 
@@ -40,13 +45,16 @@
 
 // Escape user inputs for security
         $userToBan = mysqli_real_escape_string($conn, $_POST['banUser']);
-        $admin = "correct_time";// temporary admin
+    global $admin;
+        if(isset($_SESSION['userID'])){
+        $admin = $_SESSION['userID'];
+    }
 	
 		
         // attempt insert query 
         $query = "SELECT BanUser('$admin', '$userToBan') AS BanUser";
         if(mysqli_query($conn, $query)){
-            $msg =  "Successfully banned $userToBan.<p>";
+            echo "<h3>Successfully banned $userToBan</h3>";
         } else{
             echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
         }
