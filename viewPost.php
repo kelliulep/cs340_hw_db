@@ -41,7 +41,6 @@
 		} else {
 		    $currUser = "";
 		}
-		 echo "Hello $currUser";
         // change the value of $dbuser and $dbpass to your username and password
 
 
