@@ -5,7 +5,7 @@
 ?>
 <html>
 	<head>
-		<title>AdminInfo</title>
+		<title>Your Account</title>
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="acctStyle.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,8 +32,10 @@
 		die('Could not connect: ' . mysql_error());
 	}	
 
-	$currentId = "correct_time"; // temporary admin current user
-	// $currentId = "smartboi"; //non admin temp user;
+	global $currentId;
+		if(isset($_SESSION['userID'])){
+		    $currentId = $_SESSION['userID'];
+		}
 	$query = "SELECT UserID, date, num_posts, num_favorites FROM Users WHERE UserID='$currentId' ";
 	
 // Get results from query

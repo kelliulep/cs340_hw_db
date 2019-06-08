@@ -41,14 +41,16 @@
 		$content = mysqli_real_escape_string($conn, $_POST['content']);
 		$url = mysqli_real_escape_string($conn, $_POST['url']);
 
-		//temporary hardcoded userid
-		$userId = "smartboi";
+		global $currUser;
+		if(isset($_SESSION['userID'])){
+		    $currUser = $_SESSION['userID'];
+		}
 
         // attempt insert query
         $queryTwo = "SELECT * FROM Post";
         $resultTwo = mysqli_query($conn, $queryTwo);
         $value = mysqli_num_rows($resultTwo) + 2;
-        $query = "INSERT INTO Post (postID, title, category, user_id) VALUES ('$value', '$title', '$category', '$userId')";
+        $query = "INSERT INTO Post (postID, title, category, user_id) VALUES ('$value', '$title', '$category', '$currUser')";
         $contentQ = "INSERT INTO Content (postID, picURL, text) VALUES ('$value', '$url', '$content')";
         if(mysqli_query($conn, $query) && mysqli_query($conn, $contentQ)){
             $_SESSION['currPost'] = $value;

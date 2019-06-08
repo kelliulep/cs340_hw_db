@@ -3,19 +3,30 @@
 <?php
 		$currentpage="Ban User";
 		include "pages.php";
+
 		
 ?>
 <html>
 	<head>
 		<title>Ban User</title>
 		<link rel="stylesheet" href="style.css">
-		<script type = "text/javascript"  src = "verifyInput.js" > </script> 
+		<script type = "text/javascript"  src = "verifyInput.js" > </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- bootstrap stuff -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
 <body>
-
-
+<?php include "header.php"; ?>
+<div style="padding: 20px;">
 <?php
-	include "header.php";
 	$msg = "Ban a Problematic User";
 
 // change the value of $dbuser and $dbpass to your username and password
@@ -57,9 +68,10 @@ mysqli_close($conn);
 </fieldset>
 
       <p>
-        <input type = "submit"  value = "Submit" />
-        <input type = "reset"  value = "Clear Form" />
+        <input class="btn btn-warning" type = "submit"  value = "Ban User" />
+        <input class="btn btn-secondary" type = "reset"  value = "Clear" />
       </p>
 </form>
+</div>
 </body>
 </html>

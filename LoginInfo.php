@@ -2,6 +2,7 @@
 <?php session_start(); ?>
 <html>
 	<head>
+		<title>Log in</title>
 		<script type = "text/javascript"  src = "verifyInput.js" > </script>
 		<link rel="stylesheet" href="style.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">

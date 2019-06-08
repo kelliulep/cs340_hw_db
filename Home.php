@@ -2,6 +2,7 @@
 <?php?>
 <html>
 	<head>
+		<title>CheggButFree.com | Home</title>
 		<link rel="stylesheet" href="style.css">
 		<script type = "text/javascript"  src = "verifyInput.js" > </script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,7 +124,7 @@ while($row = mysqli_fetch_row($result)) {
             } else{
                 echo "style='display:none;'";
             }
-        ?>>>
+        ?>>
 <div class="fixed-action-btn" style="position:fixed; bottom: 30px; right:24px">
 	<a href='newPost.php' id="new_post" class="btn btn-primary btn-lg" role="button">Create a Post</a>
 </div>
