@@ -3,13 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: classmysql.engr.oregonstate.edu:3306
--- Generation Time: Jun 09, 2019 at 03:06 PM
+-- Generation Time: Jun 09, 2019 at 03:47 PM
 -- Server version: 10.3.13-MariaDB-log
 -- PHP Version: 7.0.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -125,7 +126,7 @@ CREATE TABLE `Admins` (
 --
 
 INSERT INTO `Admins` (`UserID`, `numUsersBanned`) VALUES
-('admin1', 1),
+('admin1', 3),
 ('correct_time', 8),
 ('IamAnAdmin', 0),
 ('IamAnAdminAlso', 0),
@@ -159,10 +160,12 @@ INSERT INTO `BannedUsers` (`UserID`, `date`) VALUES
 ('[Banned]CSMAJOR', '2019-05-31'),
 ('[Banned]fbiguy', '2019-05-31'),
 ('[Banned]hi', '2019-06-03'),
+('[Banned]jimbean', '2019-06-09'),
 ('[Banned]johnny', '2019-05-28'),
 ('[Banned]junk', '2019-06-03'),
 ('[Banned]pleasedontban', '2019-06-04'),
 ('[Banned]plsdontbaneither', '2019-06-04'),
+('[Banned]robot', '2019-06-09'),
 ('[Banned]sch00l_is_h4rd', '2019-05-31'),
 ('[Banned]selected', '2019-06-08'),
 ('[Banned]Xx_thousands', '2019-05-31');
@@ -219,7 +222,9 @@ INSERT INTO `Content` (`postID`, `picURL`, `text`) VALUES
 (24, '', 'how do data bases work i literally have no idea'),
 (25, '', 'please help me with math'),
 (26, '', 'i like cats.'),
-(27, '', 'In a coordinate system, a vector is oriented at angle with respect to the x-axis. The y component of the vector equals the vector\'s magnitude multiplied by which trigonometric function?\r\n\r\n\r\n    A. Tan angle\r\n    B. Cos angle\r\n    C. Cot angle\r\n    D. Sin angle\r\n');
+(27, '', 'In a coordinate system, a vector is oriented at angle with respect to the x-axis. The y component of the vector equals the vector\'s magnitude multiplied by which trigonometric function?\r\n\r\n\r\n    A. Tan angle\r\n    B. Cos angle\r\n    C. Cot angle\r\n    D. Sin angle\r\n'),
+(28, '', '2x^2+4x+8'),
+(29, '', 'Content');
 
 -- --------------------------------------------------------
 
@@ -255,8 +260,9 @@ INSERT INTO `Favorites` (`postID`, `userID`) VALUES
 (18, 'admin1'),
 (18, 'smartboi'),
 (22, 'smartboi'),
-(23, 'jimbean'),
-(24, 'hello');
+(24, 'hello'),
+(28, 'Jonny'),
+(29, 'user');
 
 --
 -- Triggers `Favorites`
@@ -321,7 +327,9 @@ INSERT INTO `Post` (`postID`, `title`, `category`, `user_id`) VALUES
 (24, 'someone help', 'Computer Science', 'hello'),
 (25, 'need math help please!!', 'math', 'mimu'),
 (26, 'what?', 'Physics', 'one2'),
-(27, 'Trignometry/Physics questions??', 'Math', 'robot');
+(27, 'Trignometry/Physics questions??', 'Math', '[Banned]robot'),
+(28, 'Calculus question', 'math', 'Jonny'),
+(29, 'Test ', 'Math', 'user');
 
 --
 -- Triggers `Post`
@@ -367,7 +375,7 @@ INSERT INTO `Replies` (`replyID`, `textContent`, `postID`, `user_id`) VALUES
 (4, '1  procedure DFS(G,v):\r\n2      label v as discovered\r\n3      for all directed edges from v to w that are in G.adjacentEdges(v) do\r\n4          if vertex w is not labeled as discovered then\r\n5              recursively call DFS(G,w)', 2, 'smartboi'),
 (5, 'The law of conservation of momentum states that in an isolated system the total momentum is constant. This law works also during perfectly inelastic collision.\r\n\r\nThe pendulum is at rest before the collision.', 4, 'smartboi'),
 (6, 'module Main (main) where          -- not needed in interpreter, is the default in a module file\r\n\r\nmain :: IO ()                       -- the compiler can infer this type definition\r\nmain = putStrLn \"Hello, World!\"', 5, 'smartboi'),
-(8, 'it\'s just 4 ', 6, 'jimbean'),
+(8, 'it\'s just 4 ', 6, '[Banned]jimbean'),
 (9, '@jimbean he is wrong, it is 4x. ', 6, 'iamnumber1'),
 (10, 'It is -4x. NEGATIVE. \r\nAll you have to do if the result is a constant is put an \'x\' after it. it\'s a rule. ', 6, 'teacher'),
 (11, 'Use the tangent \r\n\r\ntan(18 deg) = h / 100 \r\n\r\nSolve for h to obtain \r\n\r\nh = 100 tan(18 deg) = 32.5 meters.', 7, 'ILikeToHelp'),
@@ -410,10 +418,15 @@ INSERT INTO `Replies` (`replyID`, `textContent`, `postID`, `user_id`) VALUES
 (127, 'b ! ', 21, 'smartboi'),
 (128, 'I don\'t get it?', 1, 'smartboi'),
 (129, 'Algorithm Preorder(tree)    1. Visit the root.    2. Traverse the left subtree, i.e., call Preorder(left-subtree)    3. Traverse the right subtree, i.e., call Preorder(right-subtree) ', 1, 'smartboi'),
-(140, 'nice', 23, 'jimbean'),
+(140, 'nice', 23, '[Banned]jimbean'),
 (141, 'fish.', 18, 'hello'),
 (142, 'What is thisss', 1, 'mimu'),
-(143, 'Use the multi line tester from groupspot', 20, 'robot');
+(143, 'Use the multi line tester from groupspot', 20, '[Banned]robot'),
+(144, 'Cute Kitty', 23, 'phonetest'),
+(145, 'oof ruff day mate', 5, '[Banned]robot'),
+(146, 'is this a good question?', 27, 'hello'),
+(147, 'Hmmm', 28, 'Jonny'),
+(148, 'replying to myself', 29, 'user');
 
 -- --------------------------------------------------------
 
@@ -446,7 +459,7 @@ INSERT INTO `Users` (`UserID`, `password`, `date`, `num_posts`, `num_favorites`)
 ('IamAnAdminAlso', 'wow12345', '0000-00-00', 0, 0),
 ('iamnumber1', 'password1', '2019-05-24', 2, 1),
 ('ILikeToHelp', 'wow12345', '0000-00-00', 0, 0),
-('jimbean', 'Yeet', '2019-06-02', 0, 1),
+('Jonny', 'Meep', '2019-06-09', 1, 1),
 ('Jonnyboi', 'SERYWE', '2019-06-01', 0, 1),
 ('katieee', 'f34tgdsa', '0000-00-00', 0, 0),
 ('kookoo', 'asf34', '0000-00-00', 1, 1),
@@ -456,11 +469,11 @@ INSERT INTO `Users` (`UserID`, `password`, `date`, `num_posts`, `num_favorites`)
 ('one2', 'one2', '2019-06-09', 1, 0),
 ('Phonetest', 'Test', '2019-06-09', 0, 0),
 ('Pleasework', 'Pleasework', '2019-06-09', 0, 0),
-('robot', 'robot', '2019-06-09', 1, 0),
 ('Robotman', 'robot', '2019-06-09', 0, 0),
 ('smartboi', 'asfj343', '2019-02-05', 13, 7),
 ('smartie', 'boiman', '0000-00-00', 0, 0),
 ('teacher', 'sadf33', '0000-00-00', 0, 0),
+('user', 'pancakes', '2019-06-09', 1, 1),
 ('user2', 'pancakes9', '2019-05-02', 2, 0),
 ('zebra6', 'zebra9', '2019-05-01', 0, 0),
 ('[Banned]awful', 'hi', '0000-00-00', 0, 0),
@@ -469,10 +482,12 @@ INSERT INTO `Users` (`UserID`, `password`, `date`, `num_posts`, `num_favorites`)
 ('[Banned]CSMAJOR', 'mybirthday2', '2019-05-11', 0, 0),
 ('[Banned]fbiguy', '234ga', '0000-00-00', 0, 0),
 ('[Banned]hi', 'hi', '2019-06-03', 0, 0),
+('[Banned]jimbean', 'Yeet', '2019-06-02', 0, 0),
 ('[Banned]johnny', '23kfd3', '0000-00-00', 1, 0),
 ('[Banned]junk', '', '2019-06-03', 0, 0),
 ('[Banned]pleasedontban', 'hahaaa', '0000-00-00', 0, 0),
 ('[Banned]plsdontbaneither', 'whatwhat', '0000-00-00', 0, 0),
+('[Banned]robot', 'robot', '2019-06-09', 1, 0),
 ('[Banned]sch00l_is_h4rd', 'soccerscorre', '2019-05-01', 0, 0),
 ('[Banned]selected', 'sdf34', '2019-05-28', 0, 0),
 ('[Banned]Xx_thousands', 'whatwhat', '2019-05-05', 0, 0);
@@ -535,7 +550,7 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT for table `Replies`
 --
 ALTER TABLE `Replies`
-  MODIFY `replyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `replyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- Constraints for dumped tables
@@ -577,7 +592,7 @@ ALTER TABLE `Post`
 --
 ALTER TABLE `Replies`
   ADD CONSTRAINT `Replies_ibfk_1` FOREIGN KEY (`postID`) REFERENCES `Post` (`postID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Replies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `Users` (`UserID`);
+  ADD CONSTRAINT `Replies_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `Users` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
