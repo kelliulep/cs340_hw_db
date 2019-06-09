@@ -1,22 +1,38 @@
+<?php
+        if(!session_id()){
+            session_start();
+        }
+?>
 <!DOCTYPE html>
 <!-- Add Supplier Info to Table Supplier -->
 <?php
 		$currentpage="Ban User";
 		include "pages.php";
+
 		
 ?>
 <html>
 	<head>
 		<title>Ban User</title>
 		<link rel="stylesheet" href="style.css">
-		<script type = "text/javascript"  src = "verifyInput.js" > </script> 
+		<script type = "text/javascript"  src = "verifyInput.js" > </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- bootstrap stuff -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
 <body>
-
-
+<?php include "header.php"; ?>
+<div style="padding: 20px;">
 <?php
-	include "header.php";
-	$msg = "Ban a Problematic User";
+	echo "<h2>Ban a Problematic User</h2>";
 
 // change the value of $dbuser and $dbpass to your username and password
 	include 'connectvars.php'; 
@@ -29,13 +45,16 @@
 
 // Escape user inputs for security
         $userToBan = mysqli_real_escape_string($conn, $_POST['banUser']);
-        $admin = "correct_time";// temporary admin
+    global $admin;
+        if(isset($_SESSION['userID'])){
+        $admin = $_SESSION['userID'];
+    }
 	
 		
         // attempt insert query 
         $query = "SELECT BanUser('$admin', '$userToBan') AS BanUser";
         if(mysqli_query($conn, $query)){
-            $msg =  "Successfully banned $userToBan.<p>";
+            echo "<h3>Successfully banned $userToBan</h3>";
         } else{
             echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
         }
@@ -57,9 +76,10 @@ mysqli_close($conn);
 </fieldset>
 
       <p>
-        <input type = "submit"  value = "Submit" />
-        <input type = "reset"  value = "Clear Form" />
+        <input class="btn btn-warning" type = "submit"  value = "Ban User" />
+        <input class="btn btn-secondary" type = "reset"  value = "Clear" />
       </p>
 </form>
+</div>
 </body>
 </html>

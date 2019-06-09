@@ -5,13 +5,19 @@
 ?>
 <html>
 	<head>
-		<title>AdminInfo</title>
+		<title>Your Account</title>
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="acctStyle.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- bootstrap stuff -->
-		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	</head>
 <body>
 
@@ -26,8 +32,10 @@
 		die('Could not connect: ' . mysql_error());
 	}	
 
-	$currentId = "correct_time"; // temporary admin current user
-
+	global $currentId;
+		if(isset($_SESSION['userID'])){
+		    $currentId = $_SESSION['userID'];
+		}
 	$query = "SELECT UserID, date, num_posts, num_favorites FROM Users WHERE UserID='$currentId' ";
 	
 // Get results from query
@@ -37,11 +45,13 @@
 	}
 // get number of columns in table	
 	$fields_num = mysqli_num_fields($result);
+	echo "<div class='container'>";
 	
 	echo "<h1>Account Info:</h1>";
 
 	$row = mysqli_fetch_array($result);
 
+	echo "<div id='account'>";
 	echo "<p> <b>Username:</b> " . $row['UserID']. "<p>";
 	echo "<p> <b>Date Joined:</b> " . $row['date']. "<p>";
 	echo "<p> <b>Number Posts:</b> " . $row['num_posts']. "<p>";
@@ -54,9 +64,12 @@
 		die("Can't tell if admin..");
 	}
 	$num = mysqli_num_rows($result2);
+	$adminInfo = mysqli_fetch_array($result2);
 
 	//If admin show the banned users and a link to ban users
 	if($num != 0) {
+		echo "<p> <b>Number Users Banned By You:</b> " . $adminInfo['numUsersBanned']. " users";
+
 		//banned users
 		$query = "SELECT * FROM BannedUsers ";
 
@@ -73,10 +86,10 @@
 		echo "<table id='t01' border='1'><tr>";
 		
 	// printing table headers
-		for($i=0; $i<$fields_num; $i++) {	
-			$field = mysqli_fetch_field($result2);	
-			echo "<td><b>$field->name</b></td>";
-		}
+		echo "<td><b>Banned Username</b></td>";
+		echo "<td><b>Date Banned</b></td>";
+
+
 		echo "</tr>\n";
 		while($row = mysqli_fetch_row($result2)) {	
 			echo "<tr>";	
@@ -88,9 +101,11 @@
 		}
 
 		echo "<h2>Banned Users:</h2>";
-		echo "<a href='BanUser.php'> Ban User </a>";
+		echo "<a href='BanUser.php' class='btn btn-primary btn-xs'> Ban a User Here </a>";
 	}
 
+	echo "</div>";
+	echo "</div>"; //container
 
 
 	mysqli_free_result($result);
