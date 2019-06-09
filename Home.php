@@ -1,5 +1,9 @@
+<?php
+        if(!session_id()){
+            session_start();
+        }
+?>
 <!DOCTYPE html>
-<?php?>
 <html>
 	<head>
 		<title>CheggButFree.com | Home</title>

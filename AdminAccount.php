@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<?php
+        if(!session_id()){
+            session_start();
+        }
+?>
+<!DOCTYPE html>
 <?php
 		$currentpage="AdminAccount";
 		include "pages.php";
