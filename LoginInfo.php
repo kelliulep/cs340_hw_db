@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<?php session_start(); ?>
-<html>
-	<head>
-		<script type = "text/javascript"  src = "verifyInput.js" > </script>
-		<link rel="stylesheet" href="style.css">
-		<?php include 'connectvars.php'; ?>
-	</head>
-<body>
-
-
 <?php 
+	session_start(); 
 
 	include 'connectvars.php'; 
 	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if (!$conn) {
 		die('Could not connect: ' . mysql_error());
 	}
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type = "text/javascript"  src = "verifyInput.js" > </script>
+		<link rel="stylesheet" href="style.css">
+	</head>
+<body>
+
+
+<?php 
 	
 	include 'header.php';
 
@@ -41,28 +43,6 @@
 		}
 	}
 
-	if ($_SERVER["REQUEST_METHOD"] == "LOGIN") {
-		// Escape user inputs for security
-		$UserID = mysqli_real_escape_string($conn, $_POST['UserID']);
-		$password = mysqli_real_escape_string($conn, $_POST['password']);
-				// See if sid is already in the table
-		$queryIn = "SELECT * FROM Users where UserID='$UserID' and password='$password'";
-		$resultIn = mysqli_query($conn, $queryIn);
-		if (mysqli_num_rows($resultIn)> 0) {
-			$_SESSION[Login] = TRUE;
-			$_SESSION[UserID] = $UserID;
-			$msg ="Found User Attempting login.<p>";
-			//return True;
-		} else {
-			$_SESSION[Login] = False;
-			$_SESSION[UserID] = "None";
-			$msg =  "<h2>Can't Add to Table</h2> There is already a supplier with sid $UserID<p>";
-			//return False;
-		}
-	}
-
-	mysqli_close($conn);
-
 ?>
 
 <section>
@@ -70,13 +50,17 @@
 
 <form method="post" id="addForm">
 	<fieldset>
-		<legend>Supplier Info:</legend>
+		<legend>Register User:</legend>
 		<p>
-			<label for="UserID">Supplier ID:</label>
+			<label for="UserID">User Name:</label>
 			<input type="text" class="required" name="UserID" id="UserID" title="sid should be numeric">
 		</p>
 		<p>
-			<label for="password">Supplier Name:</label>
+			<label for="password">Password:</label>
+			<input type="text" class="required" name="password" id="password">
+		</p>
+		<p>
+			<label for="password">Confirm Password:</label>
 			<input type="text" class="required" name="password" id="password">
 		</p>
 	</fieldset>
